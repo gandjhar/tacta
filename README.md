@@ -402,6 +402,22 @@ Add route for update patch.
 
 Now submiting the edit form will update the database.
 
+## Factor contact_params
 
+Factor the common code for contact params into a private method.
+
+    class ContactsController < ApplicationController
+
+       ...
+
+    private
+
+       def contact_params
+          params.require( :contact ).permit( :name, :phone, :email )
+       end
+
+    end
+
+Remove the old code for contact_params from the create and update methods.
 
 
