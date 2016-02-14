@@ -302,8 +302,58 @@ Add route for create post.
     Rails.application.routes.draw do
 
        ...
-           
+
        get 'contacts/new' => "contacts#new", as: :new_contact
        post 'contacts' => "contacts#create"
 
     end
+
+## Edit Form
+
+To share the form for edit and new, create a _form partial view.
+
+    # app/views/contacts/_form.html.erb
+
+    <%= form_for @contact do |f| %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :phone %>
+        <%= f.text_field :phone, size: 15 %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email, size: 20 %>
+
+        <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
+
+    <% end %>
+
+Note the change to the submit button, to test for new or edit.
+
+Alter the New view to use the partial.
+
+    <h1>New Contact</h1>
+
+    <%= render "form" %>
+
+Create an Edit view with the same partial.
+
+    <h1>Edit Contact</h1>
+
+    <%= render "form" %>
+
+Add an edit route
+
+    Rails.application.routes.draw do
+
+       ...
+
+       get 'contacts/new' => "contacts#new", as: :new_contact
+       get 'contacts/:id/edit' => 'contacts#edit'
+
+    end
+
+Now can view the edit form at
+
+    localhost:3000/contacts/5/edit

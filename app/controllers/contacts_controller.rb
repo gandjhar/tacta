@@ -24,4 +24,8 @@ class ContactsController < ApplicationController
       end
    end
 
+   def edit
+      @contact = Contact.find( params[:id] )
+   end
+
 end
