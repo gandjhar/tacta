@@ -192,3 +192,51 @@ Augment show route to generate the contact_path helper.
        get 'contacts/:id' => 'contacts#show', as: :contact
 
     end
+
+## New Contact
+
+Add a New action method to Contact controller.
+
+    class ContactsController < ApplicationController
+
+       ...
+
+       def new
+          @contact = Contact.new
+       end
+
+    end
+
+Create a New Contact form.
+
+    <h1>New Contact</h1>
+
+    <%= form_for @contact do |f| %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :phone %>
+        <%= f.text_field :phone, size: 15 %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email, size: 20 %>
+
+        <%= f.submit "Create" %>
+
+    <% end %>
+
+Add a New Contact route.  Must be before the Show route, or it will match first.
+
+    Rails.application.routes.draw do
+
+       get 'contacts' => 'contacts#index'
+       get 'contacts/new' => "contacts#new"
+       get 'contacts/:id' => 'contacts#show', as: :contact
+
+    end
+
+Able to now see the form at
+
+    localhost:3000/contacts/new
+
