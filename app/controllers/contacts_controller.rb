@@ -28,4 +28,16 @@ class ContactsController < ApplicationController
       @contact = Contact.find( params[:id] )
    end
 
+   def update
+      @contact = Contact.find( params[:id] )
+
+      contact_params = params.require( :contact ).permit( :name, :phone, :email )
+
+      if @contact.update_attributes( contact_params )
+         redirect_to @contact
+      else
+         render 'edit'
+      end
+   end
+
 end

@@ -372,3 +372,36 @@ Add Edit link to Contact Show view.
 Augment route to generate edit_contact_path helper used in the link.
 
     get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
+
+## Update
+
+Add Update action method to Contacts controller, to handle edit form submit.
+
+       def update
+          @contact = Contact.find( params[:id] )
+
+          contact_params = params.require( :contact ).permit( :name, :phone, :email )
+
+          if @contact.update_attributes( contact_params )
+             redirect_to @contact
+          else
+             render 'edit'
+          end
+       end
+
+Add route for update patch.
+
+    Rails.application.routes.draw do
+
+       ...
+
+       post 'contacts' => "contacts#create"
+       patch 'contacts/:id' => "contacts#update"
+
+    end
+
+Now submiting the edit form will update the database.
+
+
+
+
