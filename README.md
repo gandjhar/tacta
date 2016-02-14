@@ -240,3 +240,19 @@ Able to now see the form at
 
     localhost:3000/contacts/new
 
+## New Link
+
+Add link to New Contact to Index page.
+
+    <h1>Contacts</h1>
+
+    <% @contacts.each do |contact| %>
+        <p><%= link_to contact.name, contact_path( contact.id ) %></p>
+    <% end %>
+
+    <%= link_to "[New Contact]", new_contact_path %>
+
+Augment route to generate new_contact_path helper used in the link.
+
+    get 'contacts/new' => "contacts#new", as: :new_contact
+
