@@ -420,4 +420,42 @@ Factor the common code for contact params into a private method.
 
 Remove the old code for contact_params from the create and update methods.
 
+## Delete Contact
+
+Add Destroy action method to Contacts controller.
+
+    class ContactsController < ApplicationController
+
+       ...
+
+       def destroy
+          @contact = Contact.find( params[:id] )
+
+          @contact.destroy
+
+          redirect_to contacts_path
+       end
+
+    end
+
+Add a Delete link to the Contact Show page.
+
+    <h1><%= @contact.name %></h1>
+
+    <p>Phone: <%= @contact.phone %></p>
+    <p>Email: <%= @contact.email %></p>
+
+    <%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
+    <%= link_to "[Delete]", contact_path( @contact.id ), method: :delete, data: { confirm: "Are you sure?" } %>
+
+Add route for delete Contact to the destroy Contact action.
+
+    Rails.application.routes.draw do
+
+       ...
+
+       delete 'contacts/:id' => "contacts#destroy"
+
+    end
+
 

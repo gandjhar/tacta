@@ -6,6 +6,7 @@ Rails.application.routes.draw do
    get 'contacts/:id' => 'contacts#show', as: :contact
    post 'contacts' => "contacts#create"
    patch 'contacts/:id' => "contacts#update"
+   delete 'contacts/:id' => "contacts#destroy"
 
    root 'contacts#index'
 
