@@ -83,5 +83,17 @@ Check to see the data in the database.
     #<Contact id: 4, name: "Genghis Khan", phone: "+976 2 194 2222", email: "contact@empire.com", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
     #<Contact id: 5, name: "Malcom X", phone: "+1 310 155 8822", email: "x@roost.org", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
 
+## Controller
+
+Generate controller for Contacts.
+
+    > rails generate controller contacts
+
+Produces
+
+    # app/controllers/contacts_controller.rb
+    
+    class ContactsController < ApplicationController
+    end
 
 
