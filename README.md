@@ -175,3 +175,20 @@ Add a show route.
        root 'contacts#index'
 
     end
+
+## Links
+
+Link contacts on index page to their show page.
+
+    <% @contacts.each do |contact| %>
+        <p><%= link_to contact.name, contact_path( contact.id ) %></p>
+    <% end %>
+
+Augment show route to generate the contact_path helper.
+
+    Rails.application.routes.draw do
+
+       get 'contacts' => 'contacts#index'
+       get 'contacts/:id' => 'contacts#show', as: :contact
+
+    end
