@@ -139,3 +139,39 @@ Set home page to be index.
        root 'contacts#index'
 
     end
+
+## Show View
+
+Add Show action method to controller.
+
+    class ContactsController < ApplicationController
+
+       def index
+          @contacts = Contact.all
+       end
+
+       def show
+          @contact = Contact.find( params[:id] )
+       end
+
+    end
+
+Create a Show view.
+
+    # app/views/show.html.erb
+
+    <h1><%= @contact.name %></h1>
+
+    <p>Phone: <%= @contact.phone %></p>
+    <p>Email: <%= @contact.email %></p>
+
+Add a show route.
+
+    Rails.application.routes.draw do
+
+       get 'contacts' => 'contacts#index'
+       get 'contacts/:id' => 'contacts#show'
+
+       root 'contacts#index'
+
+    end
