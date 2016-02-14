@@ -357,3 +357,18 @@ Add an edit route
 Now can view the edit form at
 
     localhost:3000/contacts/5/edit
+
+## Edit Link
+
+Add Edit link to Contact Show view.
+
+    <h1><%= @contact.name %></h1>
+
+    <p>Phone: <%= @contact.phone %></p>
+    <p>Email: <%= @contact.email %></p>
+
+    <%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
+
+Augment route to generate edit_contact_path helper used in the link.
+
+    get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact

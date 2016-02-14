@@ -2,3 +2,5 @@
 
 <p>Phone: <%= @contact.phone %></p>
 <p>Email: <%= @contact.email %></p>
+
+<%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
