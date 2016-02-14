@@ -193,6 +193,25 @@ Augment show route to generate the contact_path helper.
 
     end
 
+## Home Link
+
+Add a link to home in the application layout, that will appear on all pages.
+
+    # app/views/layouts/application.html.erb
+
+    ...
+
+    <body>
+
+    <%= yield %>
+
+    <br><br>
+    <hr>
+
+    <%= link_to "[All Contacts]", root_path %>
+
+    </body>
+
 ## New Contact
 
 Add a New action method to Contact controller.
@@ -256,21 +275,35 @@ Augment route to generate new_contact_path helper used in the link.
 
     get 'contacts/new' => "contacts#new", as: :new_contact
 
-## Home Link
+## Create Contact
 
-Add a link to home in the application layout, that will appear on all pages.
+Add Create action method to Contacts controller, to handle form submit.
 
-    # app/views/layouts/application.html.erb
+    class ContactsController < ApplicationController
 
-    ...
+       ...
 
-    <body>
+       def create
+          contact_params = params.require( :contact ).permit( :name, :phone, :email )
 
-    <%= yield %>
+          @contact = Contact.new( contact_params )
 
-    <br><br>
-    <hr>
+          if @contact.save
+             redirect_to @contact
+          else
+             render 'new'
+          end
+       end
 
-    <%= link_to "[All Contacts]", root_path %>
+    end
 
-    </body>
+Add route for create post.
+
+    Rails.application.routes.draw do
+
+       ...
+           
+       get 'contacts/new' => "contacts#new", as: :new_contact
+       post 'contacts' => "contacts#create"
+
+    end
