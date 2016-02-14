@@ -458,4 +458,23 @@ Add route for delete Contact to the destroy Contact action.
 
     end
 
+## Resources Routes
 
+The many routes for individual actions can be replaced with a resources statement.
+
+    Rails.application.routes.draw do
+
+       resources :contacts
+       # get 'contacts' => 'contacts#index'
+       # get 'contacts/new' => "contacts#new", as: :new_contact
+       # get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
+       # get 'contacts/:id' => 'contacts#show', as: :contact
+       # post 'contacts' => "contacts#create"
+       # patch 'contacts/:id' => "contacts#update"
+       # delete 'contacts/:id' => "contacts#destroy"
+
+       root 'contacts#index'
+
+    end
+
+Could have used resources from the beginning, but instructive to see the code for each route.
