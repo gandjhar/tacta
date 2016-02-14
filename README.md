@@ -127,3 +127,15 @@ Add index to routes.
        get 'contacts' => 'contacts#index'
 
     end
+
+## Root
+
+Set home page to be index.
+
+    Rails.application.routes.draw do
+
+       get 'contacts' => 'contacts#index'
+
+       root 'contacts#index'
+
+    end
