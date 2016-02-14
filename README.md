@@ -256,3 +256,21 @@ Augment route to generate new_contact_path helper used in the link.
 
     get 'contacts/new' => "contacts#new", as: :new_contact
 
+## Home Link
+
+Add a link to home in the application layout, that will appear on all pages.
+
+    # app/views/layouts/application.html.erb
+
+    ...
+
+    <body>
+
+    <%= yield %>
+
+    <br><br>
+    <hr>
+
+    <%= link_to "[All Contacts]", root_path %>
+
+    </body>
