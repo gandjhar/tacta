@@ -92,8 +92,38 @@ Generate controller for Contacts.
 Produces
 
     # app/controllers/contacts_controller.rb
-    
+
     class ContactsController < ApplicationController
     end
 
+## Index View
 
+Add Index action method to controller.
+
+    class ContactController < ApplicationController
+
+       def index
+          @contacts = Contact.all
+       end
+
+    end
+
+Create index view.
+
+    # app/views/contacts/index.html.erb
+
+    <h1>Contacts</h1>
+
+    <% @contacts.each do |contact| %>
+        <p><%= contact.name %></p>
+    <% end %>
+
+Add index to routes.
+
+    # config/routes.rb
+
+    Rails.application.routes.draw do
+
+       get 'contacts' => 'contacts#index'
+
+    end
