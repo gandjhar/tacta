@@ -478,3 +478,62 @@ The many routes for individual actions can be replaced with a resources statemen
     end
 
 Could have used resources from the beginning, but instructive to see the code for each route.
+
+## Test Index
+
+Test to see if index page renders without errors.
+
+    # app/test/controllers/contacts_controller_test.rb
+
+    class ContactsControllerTest < ActionController::TestCase
+
+       test "should get index" do
+          get :index
+          assert_response :success
+       end
+
+    end
+
+Make some records for the Test Database
+
+    tjeff:
+       name: Thomas Jefferson
+       phone: +1 206 310 1369
+       email: tjeff@us.gov
+
+    cdar:
+       name: Charles Darwin
+       phone: +44 20 7123 4567
+       email: darles@evolve.org
+
+    cdar:
+       name: Nikola Tesla
+       phone: +385 43 987 3355
+       email: nik@inductlabs.com
+
+    cdar:
+       name: Genghis Khan
+       phone: +976 2 194 2222
+       email: contact@empire.com
+
+    cdar:
+       name: Malcom X
+       phone: +1 310 155 8822
+       email: x@theroost.org
+
+Run tests
+
+    > rake test
+
+    Finished in 0.405137s, 2.4683 runs/s, 2.4683 assertions/s.
+
+    1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+
+
+## Validation & Forms
+
+To do.
+
+## Model Tests
+
+To do.

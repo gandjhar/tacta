@@ -1,11 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  phone: MyString
-  email: MyString
+tjeff:
+   name: Thomas Jefferson
+   phone: +1 206 310 1369
+   email: tjeff@us.gov
 
-two:
-  name: MyString
-  phone: MyString
-  email: MyString
+cdar:
+   name: Charles Darwin
+   phone: +44 20 7123 4567
+   email: darles@evolve.org
+
+cdar:
+   name: Nikola Tesla
+   phone: +385 43 987 3355
+   email: nik@inductlabs.com
+
+cdar:
+   name: Genghis Khan
+   phone: +976 2 194 2222
+   email: contact@empire.com
+
+cdar:
+   name: Malcom X
+   phone: +1 310 155 8822
+   email: x@theroost.org
+
+
