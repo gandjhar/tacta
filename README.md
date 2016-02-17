@@ -554,6 +554,37 @@ Test to get Show, Edit and New pages.
 
     end
 
+## Test Create, Update and Delete
+
+Test for modify actions Create, Update and Delete
+
+    class ContactsControllerTest < ActionController::TestCase
+
+       ...
+
+       test "should create contact" do
+          assert_difference( 'Contact.count' ) do
+             post :create, contact: { name: "Nelson Mandela", phone: "+27 21 654-4321", email: "mandela@change.org" }
+          end
+
+          assert_redirected_to contact_path( assigns( :contact ) )
+       end
+
+       test "should update contact" do
+          patch :update, id: contacts(:cdar).id, contact: { name: "Albert Einstein", phone: "+49 40 2244 3355", email: "space@time.org" }
+
+          assert_redirected_to contact_path( assigns(:contact) )
+       end
+
+       test "should destroy contact" do
+          assert_difference('Contact.count', -1) do
+             delete :destroy, id: contacts(:cdar).id
+          end
+
+          assert_redirected_to contacts_path
+       end
+    end
+
 
 ## Validation & Forms
 
