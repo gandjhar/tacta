@@ -529,6 +529,31 @@ Run tests
 
     1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
 
+## Tests - Show, Edit & New
+
+Test to get Show, Edit and New pages.
+
+    class ContactsControllerTest < ActionController::TestCase
+
+       ...
+
+       test "should get show" do
+          get :show, id: contacts(:tjeff).id
+          assert_response :success
+       end
+
+       test "should get new" do
+          get :new
+          assert_response :success
+       end
+
+       test "should get edit" do
+          get :edit, id: contacts(:tjeff).id
+          assert_response :success
+       end
+
+    end
+
 
 ## Validation & Forms
 
