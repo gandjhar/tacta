@@ -53,7 +53,7 @@ Migrate the Database.
 > rake db:migrate
 ```
 
-Adds the Models table to the database, with columns for name, phone, and email.
+Adds the Model's table to the database, with columns for name, phone, and email.
 
 ## Seeds
 
@@ -134,7 +134,7 @@ end
 
 Create index view.
 
-```html
+```erb
 # app/views/contacts/index.html.erb
 
 <h1>Contacts</h1>
