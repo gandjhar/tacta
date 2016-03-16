@@ -4,44 +4,54 @@ Rails example of a simple Contact List.
 
 ## New
 
-Generate new rails app.
+Generate new rails app.  
 
-    > rails new tacta
+```
+> rails new tacta
+```
 
 ## Model
 
 Create the Contact model.
 
-    > rails generate model contact name:string phone:string email:string
+```
+> rails generate model contact name:string phone:string email:string
+```
 
 Adds a model file:
 
-    # app/models/contact.rb
+```ruby
+# app/models/contact.rb
 
-    class Contact < ActiveRecord::Base
-    end
+class Contact < ActiveRecord::Base
+end
+```
 
 And a migration:
 
-    # db/migrate/20160214094710_create_contacts.rb
+```ruby
+# db/migrate/20160214094710_create_contacts.rb
 
-    class CreateContacts < ActiveRecord::Migration
-      def change
-        create_table :contacts do |t|
-          t.string :name
-          t.string :phone
-          t.string :email
+class CreateContacts < ActiveRecord::Migration
+  def change
+    create_table :contacts do |t|
+      t.string :name
+      t.string :phone
+      t.string :email
 
-          t.timestamps null: false
-        end
-      end
+      t.timestamps null: false
     end
+  end
+end
+```
 
 ## Migrate
 
 Migrate the Database.
 
-    > rake db:migrate
+```
+> rake db:migrate
+```
 
 Adds the Models table to the database, with columns for name, phone, and email.
 
@@ -49,21 +59,27 @@ Adds the Models table to the database, with columns for name, phone, and email.
 
 Create some database seeds for Contacts.
 
-    # db/seeds.rb
+```ruby
+# db/seeds.rb
 
-    Contact.create( { name: "Thomas Jefferson", phone: "+1 206 310 1369" , email: "tjeff@us.gov"       } )
-    Contact.create( { name: "Charles Darwin"  , phone: "+44 20 7123 4567", email: "darles@evolve.org"  } )
-    Contact.create( { name: "Nikola Tesla"    , phone: "+385 43 987 3355", email: "nik@inductlabs.com" } )
-    Contact.create( { name: "Genghis Khan"    , phone: "+976 2 194 2222" , email: "contact@empire.com" } )
-    Contact.create( { name: "Malcom X"        , phone: "+1 310 155 8822" , email: "x@theroost.org"     } )
+Contact.create( { name: "Thomas Jefferson", phone: "+1 206 310 1369" , email: "tjeff@us.gov"       } )
+Contact.create( { name: "Charles Darwin"  , phone: "+44 20 7123 4567", email: "darles@evolve.org"  } )
+Contact.create( { name: "Nikola Tesla"    , phone: "+385 43 987 3355", email: "nik@inductlabs.com" } )
+Contact.create( { name: "Genghis Khan"    , phone: "+976 2 194 2222" , email: "contact@empire.com" } )
+Contact.create( { name: "Malcom X"        , phone: "+1 310 155 8822" , email: "x@theroost.org"     } )
+```    
 
 Seed the database:
 
-    > rake db:seed
+```
+> rake db:seed
+```
 
 Or reset the database if you have already seeded it before.  Clears out the old data first.
 
-    > rake db:reset
+```
+> rake db:reset
+```
 
 May give a drop table error if open in a DB viewer or elsewhere, but ok.
 
@@ -71,334 +87,394 @@ May give a drop table error if open in a DB viewer or elsewhere, but ok.
 
 Check to see the data in the database.
 
-    > rails console
+```
+> rails console
 
-    irb(main):008:0>  Contact.all.each { |c| puts c.inspect }
+irb(main):008:0>  Contact.all.each { |c| puts c.inspect }
 
-    Contact Load (1.0ms)  SELECT "contacts".* FROM "contacts"
+Contact Load (1.0ms)  SELECT "contacts".* FROM "contacts"
 
-    #<Contact id: 1, name: "Thomas Jefferson", phone: "+1 206 310 1369", email: "tjeff@us.gov", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
-    #<Contact id: 2, name: "Charles Darwin", phone: "+44 20 7123 4567", email: "darles@evolve.org", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
-    #<Contact id: 3, name: "Nikola Tesla", phone: "+385 43 987 3355", email: "nik@inductlabs.com", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
-    #<Contact id: 4, name: "Genghis Khan", phone: "+976 2 194 2222", email: "contact@empire.com", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
-    #<Contact id: 5, name: "Malcom X", phone: "+1 310 155 8822", email: "x@roost.org", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+#<Contact id: 1, name: "Thomas Jefferson", phone: "+1 206 310 1369", email: "tjeff@us.gov", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+#<Contact id: 2, name: "Charles Darwin", phone: "+44 20 7123 4567", email: "darles@evolve.org", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+#<Contact id: 3, name: "Nikola Tesla", phone: "+385 43 987 3355", email: "nik@inductlabs.com", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+#<Contact id: 4, name: "Genghis Khan", phone: "+976 2 194 2222", email: "contact@empire.com", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+#<Contact id: 5, name: "Malcom X", phone: "+1 310 155 8822", email: "x@roost.org", created_at: "2016-02-14 10:51:15", updated_at: "2016-02-14 10:51:15">
+```
 
 ## Controller
 
 Generate controller for Contacts.
 
-    > rails generate controller contacts
+```
+> rails generate controller contacts
+```
 
 Produces
 
-    # app/controllers/contacts_controller.rb
+```ruby
+# app/controllers/contacts_controller.rb
 
-    class ContactsController < ApplicationController
-    end
+class ContactsController < ApplicationController
+end
+```
 
 ## Index View
 
 Add Index action method to controller.
 
-    class ContactController < ApplicationController
+```ruby
+class ContactController < ApplicationController
 
-       def index
-          @contacts = Contact.all
-       end
+   def index
+      @contacts = Contact.all
+   end
 
-    end
+end
+```
 
 Create index view.
 
-    # app/views/contacts/index.html.erb
+```html
+# app/views/contacts/index.html.erb
 
-    <h1>Contacts</h1>
+<h1>Contacts</h1>
 
-    <% @contacts.each do |contact| %>
-        <p><%= contact.name %></p>
-    <% end %>
+<% @contacts.each do |contact| %>
+    <p><%= contact.name %></p>
+<% end %>
+```
 
 Add index to routes.
 
-    # config/routes.rb
+```ruby
+# config/routes.rb
 
-    Rails.application.routes.draw do
+Rails.application.routes.draw do
 
-       get 'contacts' => 'contacts#index'
+   get 'contacts' => 'contacts#index'
 
-    end
+end
+```
 
 ## Root
 
 Set home page to be index.
 
-    Rails.application.routes.draw do
+```ruby
+Rails.application.routes.draw do
 
-       get 'contacts' => 'contacts#index'
+   get 'contacts' => 'contacts#index'
 
-       root 'contacts#index'
+   root 'contacts#index'
 
-    end
+end
+```
 
 ## Show View
 
 Add Show action method to controller.
 
-    class ContactsController < ApplicationController
+```ruby
+class ContactsController < ApplicationController
 
-       def index
-          @contacts = Contact.all
-       end
+   def index
+      @contacts = Contact.all
+   end
 
-       def show
-          @contact = Contact.find( params[:id] )
-       end
+   def show
+      @contact = Contact.find( params[:id] )
+   end
 
-    end
+end
+```
 
 Create a Show view.
 
-    # app/views/show.html.erb
+```html
+# app/views/show.html.erb
 
-    <h1><%= @contact.name %></h1>
+<h1><%= @contact.name %></h1>
 
-    <p>Phone: <%= @contact.phone %></p>
-    <p>Email: <%= @contact.email %></p>
+<p>Phone: <%= @contact.phone %></p>
+<p>Email: <%= @contact.email %></p>
+```
 
 Add a show route.
 
-    Rails.application.routes.draw do
+```ruby
+Rails.application.routes.draw do
 
-       get 'contacts' => 'contacts#index'
-       get 'contacts/:id' => 'contacts#show'
+   get 'contacts' => 'contacts#index'
+   get 'contacts/:id' => 'contacts#show'
 
-       root 'contacts#index'
+   root 'contacts#index'
 
-    end
+end
+```
 
 ## Links
 
 Link contacts on index page to their show page.
 
-    <% @contacts.each do |contact| %>
-        <p><%= link_to contact.name, contact_path( contact.id ) %></p>
-    <% end %>
+```html
+<% @contacts.each do |contact| %>
+    <p><%= link_to contact.name, contact_path( contact.id ) %></p>
+<% end %>
+```
 
 Augment show route to generate the contact_path helper.
 
-    Rails.application.routes.draw do
+```ruby
+Rails.application.routes.draw do
 
-       get 'contacts' => 'contacts#index'
-       get 'contacts/:id' => 'contacts#show', as: :contact
+   get 'contacts' => 'contacts#index'
+   get 'contacts/:id' => 'contacts#show', as: :contact
 
-    end
+end
+```
 
 ## Home Link
 
 Add a link to home in the application layout, that will appear on all pages.
 
-    # app/views/layouts/application.html.erb
+```
+# app/views/layouts/application.html.erb
 
-    ...
+...
 
-    <body>
+<body>
 
-    <%= yield %>
+<%= yield %>
 
-    <br><br>
-    <hr>
+<br><br>
+<hr>
 
-    <%= link_to "[All Contacts]", root_path %>
+<%= link_to "[All Contacts]", root_path %>
 
-    </body>
+</body>
+```
 
 ## New Contact
 
 Add a New action method to Contact controller.
 
-    class ContactsController < ApplicationController
+```
+class ContactsController < ApplicationController
 
-       ...
+   ...
 
-       def new
-          @contact = Contact.new
-       end
+   def new
+      @contact = Contact.new
+   end
 
-    end
+end
+```
 
 Create a New Contact form.
 
-    <h1>New Contact</h1>
+```
+<h1>New Contact</h1>
 
-    <%= form_for @contact do |f| %>
+<%= form_for @contact do |f| %>
 
-        <%= f.label :name %>
-        <%= f.text_field :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-        <%= f.label :phone %>
-        <%= f.text_field :phone, size: 15 %>
+    <%= f.label :phone %>
+    <%= f.text_field :phone, size: 15 %>
 
-        <%= f.label :email %>
-        <%= f.text_field :email, size: 20 %>
+    <%= f.label :email %>
+    <%= f.text_field :email, size: 20 %>
 
-        <%= f.submit "Create" %>
+    <%= f.submit "Create" %>
 
-    <% end %>
+<% end %>
+```
 
 Add a New Contact route.  Must be before the Show route, or it will match first.
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       get 'contacts' => 'contacts#index'
-       get 'contacts/new' => "contacts#new"
-       get 'contacts/:id' => 'contacts#show', as: :contact
+   get 'contacts' => 'contacts#index'
+   get 'contacts/new' => "contacts#new"
+   get 'contacts/:id' => 'contacts#show', as: :contact
 
-    end
+end
+```
 
 Able to now see the form at
 
-    localhost:3000/contacts/new
+```
+localhost:3000/contacts/new
+```
 
 ## New Link
 
 Add link to New Contact to Index page.
 
-    <h1>Contacts</h1>
+```
+<h1>Contacts</h1>
 
-    <% @contacts.each do |contact| %>
-        <p><%= link_to contact.name, contact_path( contact.id ) %></p>
-    <% end %>
+<% @contacts.each do |contact| %>
+    <p><%= link_to contact.name, contact_path( contact.id ) %></p>
+<% end %>
 
-    <%= link_to "[New Contact]", new_contact_path %>
+<%= link_to "[New Contact]", new_contact_path %>
+```
 
 Augment route to generate new_contact_path helper used in the link.
 
-    get 'contacts/new' => "contacts#new", as: :new_contact
+```
+get 'contacts/new' => "contacts#new", as: :new_contact
+```
 
 ## Create Contact
 
 Add Create action method to Contacts controller, to handle form submit.
 
-    class ContactsController < ApplicationController
+```
+class ContactsController < ApplicationController
 
-       ...
+   ...
 
-       def create
-          contact_params = params.require( :contact ).permit( :name, :phone, :email )
+   def create
+      contact_params = params.require( :contact ).permit( :name, :phone, :email )
 
-          @contact = Contact.new( contact_params )
+      @contact = Contact.new( contact_params )
 
-          if @contact.save
-             redirect_to @contact
-          else
-             render 'new'
-          end
-       end
+      if @contact.save
+         redirect_to @contact
+      else
+         render 'new'
+      end
+   end
 
-    end
+end
+```
 
 Add route for create post.
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       ...
+   ...
 
-       get 'contacts/new' => "contacts#new", as: :new_contact
-       post 'contacts' => "contacts#create"
+   get 'contacts/new' => "contacts#new", as: :new_contact
+   post 'contacts' => "contacts#create"
 
-    end
+end
+```
 
 ## Edit Form
 
-To share the form for edit and new, create a _form partial view.
+To share the form for edit and new, create a \_form partial view.
 
-    # app/views/contacts/_form.html.erb
+```
+# app/views/contacts/_form.html.erb
 
-    <%= form_for @contact do |f| %>
+<%= form_for @contact do |f| %>
 
-        <%= f.label :name %>
-        <%= f.text_field :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-        <%= f.label :phone %>
-        <%= f.text_field :phone, size: 15 %>
+    <%= f.label :phone %>
+    <%= f.text_field :phone, size: 15 %>
 
-        <%= f.label :email %>
-        <%= f.text_field :email, size: 20 %>
+    <%= f.label :email %>
+    <%= f.text_field :email, size: 20 %>
 
-        <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
+    <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
 
-    <% end %>
+<% end %>
+```
 
 Note the change to the submit button, to test for new or edit.
 
 Alter the New view to use the partial.
 
-    <h1>New Contact</h1>
+```
+<h1>New Contact</h1>
 
-    <%= render "form" %>
+<%= render "form" %>
+```
 
 Create an Edit view with the same partial.
 
-    <h1>Edit Contact</h1>
+```
+<h1>Edit Contact</h1>
 
-    <%= render "form" %>
+<%= render "form" %>
+```
 
 Add an edit route
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       ...
+   ...
 
-       get 'contacts/new' => "contacts#new", as: :new_contact
-       get 'contacts/:id/edit' => 'contacts#edit'
+   get 'contacts/new' => "contacts#new", as: :new_contact
+   get 'contacts/:id/edit' => 'contacts#edit'
 
-    end
+end
+```
 
 Now can view the edit form at
 
-    localhost:3000/contacts/5/edit
+```
+localhost:3000/contacts/5/edit
+```
 
 ## Edit Link
 
 Add Edit link to Contact Show view.
 
-    <h1><%= @contact.name %></h1>
+```
+<h1><%= @contact.name %></h1>
 
-    <p>Phone: <%= @contact.phone %></p>
-    <p>Email: <%= @contact.email %></p>
+<p>Phone: <%= @contact.phone %></p>
+<p>Email: <%= @contact.email %></p>
 
-    <%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
+<%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
+```
 
 Augment route to generate edit_contact_path helper used in the link.
 
-    get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
+```
+get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
+```
 
 ## Update
 
 Add Update action method to Contacts controller, to handle edit form submit.
 
-       def update
-          @contact = Contact.find( params[:id] )
+```
+def update
+  @contact = Contact.find( params[:id] )
 
-          contact_params = params.require( :contact ).permit( :name, :phone, :email )
+  contact_params = params.require( :contact ).permit( :name, :phone, :email )
 
-          if @contact.update_attributes( contact_params )
-             redirect_to @contact
-          else
-             render 'edit'
-          end
-       end
+  if @contact.update_attributes( contact_params )
+     redirect_to @contact
+  else
+     render 'edit'
+  end
+end
+```
 
 Add route for update patch.
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       ...
+   ...
 
-       post 'contacts' => "contacts#create"
-       patch 'contacts/:id' => "contacts#update"
+   post 'contacts' => "contacts#create"
+   patch 'contacts/:id' => "contacts#update"
 
-    end
+end
+```
 
 Now submiting the edit form will update the database.
 
@@ -406,17 +482,19 @@ Now submiting the edit form will update the database.
 
 Factor the common code for contact params into a private method.
 
-    class ContactsController < ApplicationController
+```
+class ContactsController < ApplicationController
 
-       ...
+   ...
 
-    private
+private
 
-       def contact_params
-          params.require( :contact ).permit( :name, :phone, :email )
-       end
+   def contact_params
+      params.require( :contact ).permit( :name, :phone, :email )
+   end
 
-    end
+end
+```
 
 Remove the old code for contact_params from the create and update methods.
 
@@ -424,58 +502,66 @@ Remove the old code for contact_params from the create and update methods.
 
 Add Destroy action method to Contacts controller.
 
-    class ContactsController < ApplicationController
+```
+class ContactsController < ApplicationController
 
-       ...
+   ...
 
-       def destroy
-          @contact = Contact.find( params[:id] )
+   def destroy
+      @contact = Contact.find( params[:id] )
 
-          @contact.destroy
+      @contact.destroy
 
-          redirect_to contacts_path
-       end
+      redirect_to contacts_path
+   end
 
-    end
+end
+```
 
 Add a Delete link to the Contact Show page.
 
-    <h1><%= @contact.name %></h1>
+```
+<h1><%= @contact.name %></h1>
 
-    <p>Phone: <%= @contact.phone %></p>
-    <p>Email: <%= @contact.email %></p>
+<p>Phone: <%= @contact.phone %></p>
+<p>Email: <%= @contact.email %></p>
 
-    <%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
-    <%= link_to "[Delete]", contact_path( @contact.id ), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "[Edit]", edit_contact_path( @contact.id ) %>
+<%= link_to "[Delete]", contact_path( @contact.id ), method: :delete, data: { confirm: "Are you sure?" } %>
+```
 
 Add route for delete Contact to the destroy Contact action.
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       ...
+   ...
 
-       delete 'contacts/:id' => "contacts#destroy"
+   delete 'contacts/:id' => "contacts#destroy"
 
-    end
+end
+```
 
 ## Resources Routes
 
 The many routes for individual actions can be replaced with a resources statement.
 
-    Rails.application.routes.draw do
+```
+Rails.application.routes.draw do
 
-       resources :contacts
-       # get 'contacts' => 'contacts#index'
-       # get 'contacts/new' => "contacts#new", as: :new_contact
-       # get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
-       # get 'contacts/:id' => 'contacts#show', as: :contact
-       # post 'contacts' => "contacts#create"
-       # patch 'contacts/:id' => "contacts#update"
-       # delete 'contacts/:id' => "contacts#destroy"
+   resources :contacts
+   # get 'contacts' => 'contacts#index'
+   # get 'contacts/new' => "contacts#new", as: :new_contact
+   # get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
+   # get 'contacts/:id' => 'contacts#show', as: :contact
+   # post 'contacts' => "contacts#create"
+   # patch 'contacts/:id' => "contacts#update"
+   # delete 'contacts/:id' => "contacts#destroy"
 
-       root 'contacts#index'
+   root 'contacts#index'
 
-    end
+end
+```
 
 Could have used resources from the beginning, but instructive to see the code for each route.
 
@@ -483,123 +569,134 @@ Could have used resources from the beginning, but instructive to see the code fo
 
 Test to see if index page renders without errors.
 
-    # app/test/controllers/contacts_controller_test.rb
+```
+# app/test/controllers/contacts_controller_test.rb
 
-    class ContactsControllerTest < ActionController::TestCase
+class ContactsControllerTest < ActionController::TestCase
 
-       test "should get index" do
-          get :index
-          assert_response :success
-       end
+   test "should get index" do
+      get :index
+      assert_response :success
+   end
 
-    end
+end
+```
 
 Make some records for the Test Database
 
-    tjeff:
-       name: Thomas Jefferson
-       phone: +1 206 310 1369
-       email: tjeff@us.gov
+```
+tjeff:
+   name: Thomas Jefferson
+   phone: +1 206 310 1369
+   email: tjeff@us.gov
 
-    cdar:
-       name: Charles Darwin
-       phone: +44 20 7123 4567
-       email: darles@evolve.org
+cdar:
+   name: Charles Darwin
+   phone: +44 20 7123 4567
+   email: darles@evolve.org
 
-    cdar:
-       name: Nikola Tesla
-       phone: +385 43 987 3355
-       email: nik@inductlabs.com
+cdar:
+   name: Nikola Tesla
+   phone: +385 43 987 3355
+   email: nik@inductlabs.com
 
-    cdar:
-       name: Genghis Khan
-       phone: +976 2 194 2222
-       email: contact@empire.com
+cdar:
+   name: Genghis Khan
+   phone: +976 2 194 2222
+   email: contact@empire.com
 
-    cdar:
-       name: Malcom X
-       phone: +1 310 155 8822
-       email: x@theroost.org
+cdar:
+   name: Malcom X
+   phone: +1 310 155 8822
+   email: x@theroost.org
+```
 
 Run tests
 
-    > rake test
+```
+> rake test
 
-    Finished in 0.405137s, 2.4683 runs/s, 2.4683 assertions/s.
+Finished in 0.405137s, 2.4683 runs/s, 2.4683 assertions/s.
 
-    1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+```
 
 ## Tests - Show, Edit & New
 
 Test to get Show, Edit and New pages.
 
-    class ContactsControllerTest < ActionController::TestCase
+```
+class ContactsControllerTest < ActionController::TestCase
 
-       ...
+   ...
 
-       test "should get show" do
-          get :show, id: contacts(:tjeff).id
-          assert_response :success
-       end
+   test "should get show" do
+      get :show, id: contacts(:tjeff).id
+      assert_response :success
+   end
 
-       test "should get new" do
-          get :new
-          assert_response :success
-       end
+   test "should get new" do
+      get :new
+      assert_response :success
+   end
 
-       test "should get edit" do
-          get :edit, id: contacts(:tjeff).id
-          assert_response :success
-       end
+   test "should get edit" do
+      get :edit, id: contacts(:tjeff).id
+      assert_response :success
+   end
 
-    end
+end
+```
 
 ## Test Create, Update and Delete
 
 Test for modify actions Create, Update and Delete
 
-    class ContactsControllerTest < ActionController::TestCase
+```
+class ContactsControllerTest < ActionController::TestCase
 
-       ...
+   ...
 
-       test "should create contact" do
-          assert_difference( 'Contact.count' ) do
-             post :create, contact: { name: "Nelson Mandela", phone: "+27 21 654-4321", email: "mandela@change.org" }
-          end
+   test "should create contact" do
+      assert_difference( 'Contact.count' ) do
+         post :create, contact: { name: "Nelson Mandela", phone: "+27 21 654-4321", email: "mandela@change.org" }
+      end
 
-          assert_redirected_to contact_path( assigns( :contact ) )
-       end
+      assert_redirected_to contact_path( assigns( :contact ) )
+   end
 
-       test "should update contact" do
-          patch :update, id: contacts(:cdar).id, contact: { name: "Albert Einstein", phone: "+49 40 2244 3355", email: "space@time.org" }
+   test "should update contact" do
+      patch :update, id: contacts(:cdar).id, contact: { name: "Albert Einstein", phone: "+49 40 2244 3355", email: "space@time.org" }
 
-          assert_redirected_to contact_path( assigns(:contact) )
-       end
+      assert_redirected_to contact_path( assigns(:contact) )
+   end
 
-       test "should destroy contact" do
-          assert_difference('Contact.count', -1) do
-             delete :destroy, id: contacts(:cdar).id
-          end
+   test "should destroy contact" do
+      assert_difference('Contact.count', -1) do
+         delete :destroy, id: contacts(:cdar).id
+      end
 
-          assert_redirected_to contacts_path
-       end
-    end
+      assert_redirected_to contacts_path
+   end
+end
+```
 
 ## Test Model
 
 A simple model test to create a new Contact.
 
-    # test/models/contact_test.rb
-    
-    class ContactTest < ActiveSupport::TestCase
+```
+# test/models/contact_test.rb
 
-       test "should save new contact" do
-          contact = Contact.new( name: "Alan Turing", phone: "+44 20 7123 7654", email: "auto@mata.net" )
-          assert contact.save
-       end
+class ContactTest < ActiveSupport::TestCase
 
-    end
+   test "should save new contact" do
+      contact = Contact.new( name: "Alan Turing", phone: "+44 20 7123 7654", email: "auto@mata.net" )
+      assert contact.save
+   end
 
+end
+```
 
 ## Validation & Forms
 
