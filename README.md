@@ -237,7 +237,7 @@ end
 
 Add a link to home in the application layout, that will appear on all pages.
 
-```
+```ruby
 # app/views/layouts/application.html.erb
 
 ...
@@ -258,7 +258,7 @@ Add a link to home in the application layout, that will appear on all pages.
 
 Add a New action method to Contact controller.
 
-```
+```ruby
 class ContactsController < ApplicationController
 
    ...
@@ -272,7 +272,7 @@ end
 
 Create a New Contact form.
 
-```
+```html
 <h1>New Contact</h1>
 
 <%= form_for @contact do |f| %>
@@ -293,7 +293,7 @@ Create a New Contact form.
 
 Add a New Contact route.  Must be before the Show route, or it will match first.
 
-```
+```ruby
 Rails.application.routes.draw do
 
    get 'contacts' => 'contacts#index'
@@ -313,7 +313,7 @@ localhost:3000/contacts/new
 
 Add link to New Contact to Index page.
 
-```
+```html
 <h1>Contacts</h1>
 
 <% @contacts.each do |contact| %>
@@ -325,7 +325,7 @@ Add link to New Contact to Index page.
 
 Augment route to generate new_contact_path helper used in the link.
 
-```
+```ruby
 get 'contacts/new' => "contacts#new", as: :new_contact
 ```
 
@@ -333,7 +333,7 @@ get 'contacts/new' => "contacts#new", as: :new_contact
 
 Add Create action method to Contacts controller, to handle form submit.
 
-```
+```ruby
 class ContactsController < ApplicationController
 
    ...
@@ -355,7 +355,7 @@ end
 
 Add route for create post.
 
-```
+```ruby
 Rails.application.routes.draw do
 
    ...
@@ -370,7 +370,7 @@ end
 
 To share the form for edit and new, create a \_form partial view.
 
-```
+```html
 # app/views/contacts/_form.html.erb
 
 <%= form_for @contact do |f| %>
@@ -393,7 +393,7 @@ Note the change to the submit button, to test for new or edit.
 
 Alter the New view to use the partial.
 
-```
+```html
 <h1>New Contact</h1>
 
 <%= render "form" %>
@@ -401,7 +401,7 @@ Alter the New view to use the partial.
 
 Create an Edit view with the same partial.
 
-```
+```html
 <h1>Edit Contact</h1>
 
 <%= render "form" %>
@@ -409,7 +409,7 @@ Create an Edit view with the same partial.
 
 Add an edit route
 
-```
+```ruby
 Rails.application.routes.draw do
 
    ...
@@ -430,7 +430,7 @@ localhost:3000/contacts/5/edit
 
 Add Edit link to Contact Show view.
 
-```
+```html
 <h1><%= @contact.name %></h1>
 
 <p>Phone: <%= @contact.phone %></p>
@@ -441,7 +441,7 @@ Add Edit link to Contact Show view.
 
 Augment route to generate edit_contact_path helper used in the link.
 
-```
+```ruby
 get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
 ```
 
@@ -449,7 +449,7 @@ get 'contacts/:id/edit' => 'contacts#edit', as: :edit_contact
 
 Add Update action method to Contacts controller, to handle edit form submit.
 
-```
+```ruby
 def update
   @contact = Contact.find( params[:id] )
 
@@ -465,7 +465,7 @@ end
 
 Add route for update patch.
 
-```
+```ruby
 Rails.application.routes.draw do
 
    ...
@@ -482,7 +482,7 @@ Now submiting the edit form will update the database.
 
 Factor the common code for contact params into a private method.
 
-```
+```ruby
 class ContactsController < ApplicationController
 
    ...
@@ -502,7 +502,7 @@ Remove the old code for contact_params from the create and update methods.
 
 Add Destroy action method to Contacts controller.
 
-```
+```ruby
 class ContactsController < ApplicationController
 
    ...
@@ -520,7 +520,7 @@ end
 
 Add a Delete link to the Contact Show page.
 
-```
+```html
 <h1><%= @contact.name %></h1>
 
 <p>Phone: <%= @contact.phone %></p>
@@ -532,7 +532,7 @@ Add a Delete link to the Contact Show page.
 
 Add route for delete Contact to the destroy Contact action.
 
-```
+```ruby
 Rails.application.routes.draw do
 
    ...
@@ -546,7 +546,7 @@ end
 
 The many routes for individual actions can be replaced with a resources statement.
 
-```
+```ruby
 Rails.application.routes.draw do
 
    resources :contacts
@@ -569,7 +569,7 @@ Could have used resources from the beginning, but instructive to see the code fo
 
 Test to see if index page renders without errors.
 
-```
+```ruby
 # app/test/controllers/contacts_controller_test.rb
 
 class ContactsControllerTest < ActionController::TestCase
@@ -584,7 +584,7 @@ end
 
 Make some records for the Test Database
 
-```
+```yaml
 tjeff:
    name: Thomas Jefferson
    phone: +1 206 310 1369
@@ -625,7 +625,7 @@ Finished in 0.405137s, 2.4683 runs/s, 2.4683 assertions/s.
 
 Test to get Show, Edit and New pages.
 
-```
+```ruby
 class ContactsControllerTest < ActionController::TestCase
 
    ...
@@ -652,7 +652,7 @@ end
 
 Test for modify actions Create, Update and Delete
 
-```
+```ruby
 class ContactsControllerTest < ActionController::TestCase
 
    ...
@@ -685,7 +685,7 @@ end
 
 A simple model test to create a new Contact.
 
-```
+```ruby
 # test/models/contact_test.rb
 
 class ContactTest < ActiveSupport::TestCase
