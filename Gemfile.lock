@@ -144,11 +144,11 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  coffee-rails (~> 4.1.0)
+  coffee-rails (~> 4.1.1)
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.5.1)
-  sass-rails (~> 5.0)
+  sass-rails (~> 5.0.4)
   sdoc (~> 0.4.0)
   sqlite3
   turbolinks
