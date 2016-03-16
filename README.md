@@ -134,7 +134,7 @@ end
 
 Create index view.
 
-```erb
+```html
 # app/views/contacts/index.html.erb
 
 <h1>Contacts</h1>
