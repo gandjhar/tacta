@@ -1,6 +1,6 @@
 # Tacta
 
-Rails example of a simple Contact List.
+Rails example of a simple Contact Manager.
 
 ## New
 
@@ -700,8 +700,142 @@ end
 
 ## Validation & Forms
 
-To do.
+Add validations to Contact that enforce rules about the data.
 
-## Model Tests
+```ruby
+# app/models/contact.rb
 
-To do.
+class Contact
+   validates :name, presence: true
+   validates :name, uniqueness: true
+
+   validates :phone, allow_blank: true, length: { in: 5..20 }
+   validates :email, allow_blank: true, length: { in: 5..50 }
+
+   validates_format_of :phone, allow_blank: true, :with => /\A[+ 0-9]+$\z/
+   validates_format_of :email, allow_blank: true, :with => /@/, message: 'must contain @.'
+end
+```
+
+A save operation to the database will fail if data is not valid.  On failure, Rails attaches error  to the object.  When save fails in the controller, we rerender the form.
+
+```ruby
+class ContactsController
+
+   # ...
+
+   def create
+      @contact = Contact.new( contact_params )
+
+      if @contact.save
+         redirect_to @contact
+      else
+         render 'new'
+      end
+   end
+
+end
+```
+
+And similar to fail to update on edit.
+
+```ruby
+class ContactsController
+
+   # ...
+
+   def update
+      @contact = Contact.find( params[:id] )
+
+      if @contact.update_attributes( contact_params )
+         redirect_to @contact
+      else
+         render 'edit'
+      end
+   end
+
+end
+```
+
+Display the error messages in the Contact form.
+
+```html+erb
+<%= form_for @contact do |f| %>
+
+   <ul>
+      <% @contact.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+   </ul>
+
+   <%= f.label :name %>
+   <%= f.text_field :name %>
+   <%= f.label :phone %>
+   <%= f.text_field :phone, size: 15 %>
+   <%= f.label :email %>
+   <%= f.text_field :email, size: 20 %>
+   <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
+<% end %>
+```
+
+Rails also wraps the error fields in divs automatically.  After errors, the form will render to something like
+
+```html
+<form class="new_contact" id="new_contact" action="/contacts" method="post">
+
+   <ul>
+          <li>Name can&#39;t be blank</li>
+   </ul>
+
+   <div class="field_with_errors"><label for="contact_name">Name</label></div>
+   <div class="field_with_errors"><input type="text" value="" name="contact[name]" id="contact_name" /></div>
+   <label for="contact_phone">Phone</label>
+   <input size="15" type="text" value="" name="contact[phone]" id="contact_phone" />
+   <label for="contact_email">Email</label>
+   <input size="20" type="text" value="" name="contact[email]" id="contact_email" />
+   <input type="submit" name="commit" value="Create" />
+</form>
+```
+
+Highlight the fields with errors using style rules to give a red border and background.
+
+```css
+div.field_with_errors {
+    display: inline;
+
+    input {
+        padding: 2px 2px;
+        border: 1px solid #E66;
+        background-color: #FFF7F7;
+    }
+}
+```
+
+## Summary
+
+The Rails version of Tacta builds on concepts from the Ruby and Sinatra versions, adding
+
+- Rails
+- Models
+- Databases
+- Migrations
+- Routes to Controllers & Actions
+- Resources
+- Link helpers
+- Form helpers
+- Safe params
+- Validation
+- Partials
+- Form errors
+- Testing (Controller Actions and Models)
+
+And strengthens concepts
+
+- Views
+- Erb
+- Restful Structure
+
+Does not cover
+- Multiple models, Joins, Many to X
+- Sessions
+- Users/Login & Devise

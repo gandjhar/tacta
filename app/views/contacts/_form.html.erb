@@ -1,14 +1,20 @@
 <%= form_for @contact do |f| %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+   <ul>
+      <% @contact.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+   </ul>
 
-    <%= f.label :phone %>
-    <%= f.text_field :phone, size: 15 %>
+   <%= f.label :name %>
+   <%= f.text_field :name %>
 
-    <%= f.label :email %>
-    <%= f.text_field :email, size: 20 %>
+   <%= f.label :phone %>
+   <%= f.text_field :phone, size: 15 %>
 
-    <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
+   <%= f.label :email %>
+   <%= f.text_field :email, size: 20 %>
 
+   <%= f.submit (@contact.new_record? ? "Create" : "Update") %>
+   
 <% end %>
